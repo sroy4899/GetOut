@@ -23,23 +23,21 @@ public class ObjectControl : MonoBehaviour
         {
             transform.position = c.transform.position + c.transform.forward;
             transform.forward = c.transform.forward * -1;
+            rb.Sleep();
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.F))
             {
+                rb.WakeUp();
+                holding = false;
                 if (Vector3.Distance(transform.position, frame.transform.position) < 2)
                 {
                     transform.position = frame.transform.position;
                     rb.constraints = RigidbodyConstraints.FreezePosition;
-
-                    holding = false;
                 }
-            }
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                holding = false;
-                rb.constraints = RigidbodyConstraints.None;
-                rb.constraints = RigidbodyConstraints.FreezeRotation;
+                else { 
+                    rb.constraints = RigidbodyConstraints.None;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                }
             }
         }
     }
