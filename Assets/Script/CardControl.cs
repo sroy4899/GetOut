@@ -43,9 +43,10 @@ public class CardControl : MonoBehaviour
                 }
                 else
                 {
+                    if(Input.GetMouseButton(0)) { 
+                        rb.velocity = -transform.forward * 5; 
+                    }
                     rb.constraints = RigidbodyConstraints.None;
-                    rb.constraints = RigidbodyConstraints.FreezeRotation;
-                    //transform.rotation = Quaternion.Euler(-90, 0, 0);
                 }
             }
         }
