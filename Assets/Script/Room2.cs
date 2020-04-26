@@ -12,11 +12,11 @@ public class Room2 : MonoBehaviour
     {
         doorAm = door.GetComponent<Animator>();
         doorAm.SetBool("open", true);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
