@@ -56,6 +56,7 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
+        chestAm.SetBool("Open", true);
         if(!chestFinished) { 
             int count = 0;
             for(int i = 0; i <= 4; i++)
