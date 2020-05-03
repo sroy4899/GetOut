@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlashController : MonoBehaviour
+public class FlashController1 : MonoBehaviour
 {
-    // Start is called before the first frame update 
+
+    // Start is called before the first frame update
     private bool startFlash;
     private float timer = 0.0f;
     private bool first;
     private int index;
-    private FlashLight.Flasher[] letterOrder;
+    private FlashLight.Flasher[] numberOrder;
     private FlashLight.Flasher flasher;
     void Start()
     {
-        letterOrder = new FlashLight.Flasher[8];        
+        numberOrder = new FlashLight.Flasher[8];
+        
 
         startFlash = false;
         index = 0;  
@@ -22,15 +24,14 @@ public class FlashController : MonoBehaviour
 
     void Update() { 
         if(first) { 
-            letterOrder[0] = (FlashLight.letters[0][4]);
-            letterOrder[1] = (FlashLight.letters[2][3]);
-            letterOrder[2] = (FlashLight.letters[2][3]);
-            letterOrder[3] = (FlashLight.letters[0][3]);
-            letterOrder[4] = (FlashLight.letters[1][5]);
-            letterOrder[5] = (FlashLight.letters[2][3]);
-            letterOrder[6] = (FlashLight.letters[0][4]);
-            letterOrder[7] = (FlashLight.letters[2][6]); 
-
+            numberOrder[0] = FlashLight.numbers[1][1]; 
+            numberOrder[1] = FlashLight.numbers[1][2];
+            numberOrder[2] = FlashLight.numbers[0][2];
+            numberOrder[3] = FlashLight.numbers[1][0];
+            numberOrder[4] = FlashLight.numbers[0][0];
+            numberOrder[5] = FlashLight.numbers[2][1];
+            numberOrder[6] = FlashLight.numbers[2][0];
+            numberOrder[7] = FlashLight.numbers[0][1];
             first = false;
         }
     }
@@ -43,10 +44,11 @@ public class FlashController : MonoBehaviour
         }
         if(timer > 1.0f) { 
 
-            letterOrder[index].Return(); 
-            if(index < letterOrder.Length-1) { 
+            numberOrder[index].Return(); 
+            if(index < numberOrder.Length-1) { 
                 index++; 
-                letterOrder[index].Flash(); 
+                print(index); 
+                numberOrder[index].Flash(); 
                 
             }
             else { 
@@ -63,7 +65,7 @@ public class FlashController : MonoBehaviour
             startFlash = true;
             index = 0;
             StartCoroutine(Press());
-            letterOrder[index].Flash();
+            numberOrder[index].Flash();
         }
     }
 
@@ -80,8 +82,8 @@ public class FlashController : MonoBehaviour
 
     IEnumerator Press()
     {
-        transform.position += new Vector3(-.5f, 0, 0);
+        transform.position += new Vector3(0, 0, .5f);
         yield return new WaitForSeconds(.5f);
-        transform.position -= new Vector3(-.5f, 0, 0);
+        transform.position -= new Vector3(0, 0, .5f);
     }
 }
