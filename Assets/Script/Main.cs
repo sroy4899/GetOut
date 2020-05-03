@@ -25,9 +25,7 @@ public class Main : MonoBehaviour
     public GameObject frame5;
     public static Frame[] frames;
     private ArrayList correctCards;
-    public GameObject chest; 
-    private Animator chestAm;
-    private bool chestFinished;
+    private bool pokerFinished;
     public GameObject door; 
     private Animator doorAm; 
     
@@ -35,9 +33,8 @@ public class Main : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        chestFinished = false;
+        pokerFinished = false;
         doorAm = door.GetComponent<Animator>();
-        chestAm = chest.GetComponent<Animator>();
         frames = new Frame[5];
         frames[0] = new Frame(frame1);
         frames[1] = new Frame(frame2);
@@ -56,8 +53,7 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        chestAm.SetBool("Open", true);
-        if(!chestFinished) { 
+        if(!pokerFinished) { 
             int count = 0;
             for(int i = 0; i <= 4; i++)
             {
@@ -69,8 +65,8 @@ public class Main : MonoBehaviour
 
             if(count == 5)
             {
-                chestFinished = true;
-                //chestAm.SetBool("Open", true);
+                pokerFinished = true;
+                doorAm.SetBool("open", true);
             }
         }
         

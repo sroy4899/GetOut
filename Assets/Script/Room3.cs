@@ -23,16 +23,25 @@ public class Room3 : MonoBehaviour
     }
 
     public GameObject wall;
-    public GameObject ball;
+    public GameObject ballRef;
+    public GameObject startSquare;
+    public GameObject endSquare;
     public static Cell[][] cells;
-    private bool cPull = false, cDone = false, ccPull = false, ccDone = false;
-    private float waitTime = 2.0f;
+    public static bool lever1Pull = false, lever1Done = true, lever2Pull = false, lever2Done = true, lever3Pull = false;
+    private float waitTime = 1.0f;
     private float timer = 0.0f;
     private int direction = 1;
     private Vector3 center = new Vector3(0f, 5f, 49.5f);
     private int orientation = 0;
     private int xPos = 0;
-    private int yPos = 9;
+    private int yPos = 0;
+    private GameObject start;
+    private GameObject end;
+    private GameObject ball;
+    private bool firstBall = true;
+    public static bool finished = false;
+    public GameObject chest;
+    private Animator chestAm;
 
     // Start is called before the first frame update
     void Start()
@@ -86,84 +95,111 @@ public class Room3 : MonoBehaviour
         }
 
         makeMaze(cells, 10);
-        ball.transform.position = (cells[0][9].west.transform.position + cells[0][9].east.transform.position) / 2;
+
+        Vector3 startSquarePos = (cells[0][0].west.transform.position + cells[0][0].east.transform.position) / 2;
+        start = Instantiate(startSquare, new Vector3(startSquarePos.x, startSquarePos.y, 49.75f), Quaternion.identity);
+
+        Vector3 endSquarePos = (cells[9][9].west.transform.position + cells[9][9].east.transform.position) / 2;
+        end = Instantiate(endSquare, new Vector3(endSquarePos.x, endSquarePos.y, 49.75f), Quaternion.identity);
+
+        chestAm = chest.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (!finished)
         {
-            cPull = true;
-            cDone = false;
-            timer = 0.0f;
-            direction = -1;
-            orientation = (orientation - 1) % 4;
-
-            if(orientation < 0)
+            if (MazeBall.inMaze && firstBall)
             {
-                orientation += 4;
-            }
-        }
+                firstBall = false;
+                ball = Instantiate(ballRef, new Vector3(0f, 0f, 0f), Quaternion.identity);
+                ball.transform.position = (cells[0][0].west.transform.position + cells[0][0].east.transform.position) / 2;
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            ccPull = true;
-            ccDone = false;
-            timer = 0.0f;
-            direction = 1;
-            orientation = (orientation + 1) % 4;
-        }
-
-        if (ccPull || cPull)
-        {
-            timer += Time.deltaTime;
-        }
-
-        if(timer > waitTime)
-        {
-            if (ccPull)
-            {
-                ccPull = false;
-                ccDone = true;
+                Rigidbody rbb = ball.GetComponent<Rigidbody>();
+                rbb.useGravity = false;
             }
 
-            if (cPull)
+            if (MazeBall.inMaze && Vector3.Distance(ball.transform.position, end.transform.position) <= 0.27f)
             {
-                cPull = false;
-                cDone = true;
+                finished = true;
+                chestAm.SetBool("Open", true);
             }
-        }
 
-        if((ccPull && !ccDone) || (cPull && !cDone))
-        {
-            int degrees = 45 * direction;
-
-            ball.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
-
-            for (int i = 0; i < 10; i++)
+            if (lever1Pull && lever1Done)
             {
-                for (int j = 0; j < 10; j++)
+                lever1Done = false;
+                timer = 0.0f;
+                direction = 1;
+                orientation = (orientation + 1) % 4;
+            }
+
+            if (lever2Pull && lever2Done)
+            {
+                lever2Done = false;
+                timer = 0.0f;
+                direction = -1;
+                orientation = (orientation - 1) % 4;
+
+                if (orientation < 0)
                 {
-                    cells[i][j].north.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
-                    cells[i][j].east.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+                    orientation += 4;
+                }
+            }
 
-                    if (i == 9)
-                    {
-                        cells[i][j].west.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
-                    }
+            if (lever1Pull || lever2Pull)
+            {
+                timer += Time.deltaTime;
+            }
 
-                    if (j == 9)
+            if (timer > waitTime)
+            {
+                if (lever1Pull)
+                {
+                    lever1Pull = false;
+                    lever1Done = true;
+                }
+
+                if (lever2Pull)
+                {
+                    lever2Pull = false;
+                    lever2Done = true;
+                }
+            }
+
+            if ((lever1Pull && !lever1Done) || (lever2Pull && !lever2Done))
+            {
+                int degrees = 90 * direction;
+
+                ball.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+                start.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+                end.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
                     {
-                        cells[i][j].south.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+                        cells[i][j].north.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+                        cells[i][j].east.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+
+                        if (i == 9)
+                        {
+                            cells[i][j].west.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+                        }
+
+                        if (j == 9)
+                        {
+                            cells[i][j].south.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+                        }
                     }
                 }
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            moveRight();
+            if (lever3Pull)
+            {
+                moveRight();
+                lever3Pull = false;
+            }
         }
     }
 
