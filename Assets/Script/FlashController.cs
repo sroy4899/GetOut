@@ -22,14 +22,14 @@ public class FlashController : MonoBehaviour
 
     void Update() { 
         if(first) { 
-            letterOrder[0] = (FlashLight.letters[0][4]);
-            letterOrder[1] = (FlashLight.letters[2][3]);
-            letterOrder[2] = (FlashLight.letters[2][3]);
-            letterOrder[3] = (FlashLight.letters[0][3]);
-            letterOrder[4] = (FlashLight.letters[1][5]);
-            letterOrder[5] = (FlashLight.letters[2][3]);
-            letterOrder[6] = (FlashLight.letters[0][4]);
-            letterOrder[7] = (FlashLight.letters[2][6]); 
+            letterOrder[0] = (FlashLight.letters[1][3]);
+            letterOrder[1] = (FlashLight.letters[0][4]);
+            letterOrder[2] = (FlashLight.letters[3][3]);
+            letterOrder[3] = (FlashLight.letters[1][4]);
+            letterOrder[4] = (FlashLight.letters[2][3]);
+            letterOrder[5] = (FlashLight.letters[1][4]);
+            letterOrder[6] = (FlashLight.letters[1][1]);
+            letterOrder[7] = (FlashLight.letters[1][5]); 
 
             first = false;
         }

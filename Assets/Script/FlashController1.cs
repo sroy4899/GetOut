@@ -24,14 +24,14 @@ public class FlashController1 : MonoBehaviour
 
     void Update() { 
         if(first) { 
-            numberOrder[0] = FlashLight.numbers[1][1]; 
-            numberOrder[1] = FlashLight.numbers[1][2];
-            numberOrder[2] = FlashLight.numbers[0][2];
-            numberOrder[3] = FlashLight.numbers[1][0];
-            numberOrder[4] = FlashLight.numbers[0][0];
-            numberOrder[5] = FlashLight.numbers[2][1];
-            numberOrder[6] = FlashLight.numbers[2][0];
-            numberOrder[7] = FlashLight.numbers[0][1];
+            numberOrder[0] = FlashLight.numbers[0][2]; 
+            numberOrder[1] = FlashLight.numbers[2][0];
+            numberOrder[2] = FlashLight.numbers[0][1];
+            numberOrder[3] = FlashLight.numbers[1][2];
+            numberOrder[4] = FlashLight.numbers[2][1];
+            numberOrder[5] = FlashLight.numbers[1][1];
+            numberOrder[6] = FlashLight.numbers[1][0];
+            numberOrder[7] = FlashLight.numbers[0][0];
             first = false;
         }
     }
