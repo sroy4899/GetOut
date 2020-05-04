@@ -24,8 +24,8 @@ public class SlidePuzzle : MonoBehaviour
         bool yeet = true;
         for(int i = 0; i < solvers.Length; i++) { 
             if(solvers[i] == false) yeet = false; 
-        } 
-        if(yeet) print("SOLVED");
+        }
+        if (yeet) solved = true;
     } 
 
     public static int[] worldToGrid(float y, float z) { 

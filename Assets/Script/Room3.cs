@@ -42,6 +42,8 @@ public class Room3 : MonoBehaviour
     public static bool finished = false;
     public GameObject chest;
     private Animator chestAm;
+    private bool firstBrief = true;
+    public GameObject background;
 
     // Start is called before the first frame update
     void Start()
@@ -96,18 +98,23 @@ public class Room3 : MonoBehaviour
 
         makeMaze(cells, 10);
 
-        Vector3 startSquarePos = (cells[0][0].west.transform.position + cells[0][0].east.transform.position) / 2;
-        start = Instantiate(startSquare, new Vector3(startSquarePos.x, startSquarePos.y, 49.75f), Quaternion.identity);
-
-        Vector3 endSquarePos = (cells[9][9].west.transform.position + cells[9][9].east.transform.position) / 2;
-        end = Instantiate(endSquare, new Vector3(endSquarePos.x, endSquarePos.y, 49.75f), Quaternion.identity);
-
         chestAm = chest.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(BriefcaseController.briefcaseCorrect && firstBrief)
+        {
+            Vector3 startSquarePos = (cells[0][0].west.transform.position + cells[0][0].east.transform.position) / 2;
+            start = Instantiate(startSquare, new Vector3(startSquarePos.x, startSquarePos.y, 49.75f), Quaternion.identity);
+
+            Vector3 endSquarePos = (cells[9][9].west.transform.position + cells[9][9].east.transform.position) / 2;
+            end = Instantiate(endSquare, new Vector3(endSquarePos.x, endSquarePos.y, 49.75f), Quaternion.identity);
+
+            firstBrief = false;
+        }
+
         if (!finished)
         {
             if (MazeBall.inMaze && firstBall)
@@ -174,6 +181,7 @@ public class Room3 : MonoBehaviour
                 ball.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
                 start.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
                 end.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
+                background.transform.RotateAround(center, Vector3.forward, degrees * Time.deltaTime);
 
                 for (int i = 0; i < 10; i++)
                 {
