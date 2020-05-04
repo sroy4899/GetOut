@@ -10,7 +10,10 @@ public class BriefcaseController : MonoBehaviour
     public Text box3;
     public Text box4;
     public Text box5;
-    public Text box6;
+    public Text box6; 
+
+    public GameObject b1, b2, b3, b4, b5, b6;
+    private Renderer r1, r2, r3, r4, r5, r6, r7;
 
     public static string text1 = "0";
     public static string text2 = "0";
@@ -26,6 +29,12 @@ public class BriefcaseController : MonoBehaviour
     private void Start()
     {
         chestAm = chest.GetComponent<Animator>();
+        r1 = b1.GetComponent<Renderer>();
+        r2 = b2.GetComponent<Renderer>();
+        r3 = b3.GetComponent<Renderer>();
+        r4 = b4.GetComponent<Renderer>();
+        r5 = b5.GetComponent<Renderer>();
+        r6 = b6.GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -43,7 +52,13 @@ public class BriefcaseController : MonoBehaviour
 
         if(box1.text == "1" && box2.text == "3" && box3.text == "5" && box4.text == "9" && box5.text == "1" && box6.text == "2")
         {
-            briefcaseCorrect = true;
+            briefcaseCorrect = true; 
+            r1.material.SetColor("_Color", Color.green);
+            r2.material.SetColor("_Color", Color.green);
+            r3.material.SetColor("_Color", Color.green);
+            r4.material.SetColor("_Color", Color.green);
+            r5.material.SetColor("_Color", Color.green);
+            r6.material.SetColor("_Color", Color.green);
             chestAm.SetBool("Open", true);
         }
     }

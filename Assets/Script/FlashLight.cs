@@ -3,26 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FlashLight : MonoBehaviour
-{
+{ 
+    public Texture t;
+    public Texture r;
     public class Flasher { 
-        GameObject reference; 
+        GameObject reference;  
         Renderer renderer; 
+        Texture tt; 
+        Texture rr;
         Color normal, flash;
 
-        public Flasher(GameObject reference, Color normal, Color flash) { 
+        public Flasher(GameObject reference, Color normal, Color flash, Texture tt, Texture rr) { 
             this.reference = reference; 
             renderer = this.reference.GetComponent<Renderer>();
-            renderer.material.SetColor("_Color", Color.blue);
+            this.tt = tt;
+            this.rr = rr;
+            //renderer.material.SetTexture("_MainTex", this.rr);
+            renderer.material.SetColor("_Color", Color.black);
             this.normal = normal; 
             this.flash = flash;
         } 
 
         public void Flash() { 
-            renderer.material.SetColor("_Color", flash);
+            renderer.material.SetColor("_Color", Color.white);
+            renderer.material.SetTexture("_MainTex", tt);
         } 
 
         public void Return() { 
-            renderer.material.SetColor("_Color", normal); 
+            renderer.material.SetColor("_Color", Color.black); 
         }
     }
     public GameObject letter; 
@@ -48,7 +56,7 @@ public class FlashLight : MonoBehaviour
             letters[i] = new Flasher[size]; 
             for(int j = 0; j < size; j++) { 
                 GameObject curr = Instantiate(letter, new Vector3(x, y, z), Quaternion.Euler(0, 0, 90));
-                letters[i][j] = new Flasher(curr, Color.blue, Color.red);
+                letters[i][j] = new Flasher(curr, Color.blue, Color.red, t, r);
                 z += 2.5f;
             }
             y -= 2;
@@ -67,7 +75,7 @@ public class FlashLight : MonoBehaviour
             numbers[i] = new Flasher[size]; 
             for(int j = 0; j < size; j++) {
                 GameObject curr = Instantiate(number, new Vector3(x, y, z), Quaternion.identity);
-                numbers[i][j] = new Flasher(curr, Color.blue, Color.red);
+                numbers[i][j] = new Flasher(curr, Color.blue, Color.red, t, r);
                 x += 2;
             }
             y -= 2;

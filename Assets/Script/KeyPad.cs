@@ -7,6 +7,9 @@ public class KeyPad : MonoBehaviour
 {
     // Start is called before the first frame update
     public Text t;
+    private Renderer r; 
+    public Material texture; 
+    public GameObject display; 
     public static string entry;
     public string passcode;
     public static bool check;
@@ -15,6 +18,7 @@ public class KeyPad : MonoBehaviour
     private Animator tridoorAm;
     void Start()
     {
+        r = display.GetComponent<Renderer>(); 
         t.text = "";
         entry = "";
         check = false;
@@ -31,10 +35,21 @@ public class KeyPad : MonoBehaviour
                 if(t.text == passcode) { 
                     tridoorAm.SetBool("open", true);
                     opened = true;
+                    r.material.SetColor("_Color", Color.green);
+                } 
+                else { 
+                    StartCoroutine(Yeet());
                 }
                 entry = "";
                 check = false;
             }
         }
+    } 
+
+    IEnumerator Yeet()
+    { 
+        r.material.SetColor("_Color", Color.red); 
+        yield return new WaitForSeconds(1); 
+        r.material = texture;
     }
 }

@@ -20,7 +20,9 @@ public class SlideCell : MonoBehaviour
     void Update()
     {   
         if(SlidePuzzle.solved) { 
-            renderer.material.SetColor("_Color", Color.green);
+            if(name.Equals("12") || name.Equals("1") || name.Equals("35") || name.Equals("9")) { 
+                renderer.material.SetColor("_Color", Color.green);
+            }
         }
         if(name.Equals("1") && y == 0 && z == 0) SlidePuzzle.solvers[0] = true;
         else if(name.Equals("1")) SlidePuzzle.solvers[0] = false;

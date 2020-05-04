@@ -13,7 +13,7 @@ public class KeyPadButtonController2 : MonoBehaviour
             else if(name == "Enter") { 
                 KeyPad2.check = true;
             } 
-            else if(KeyPad2.entry.Length < 4) { 
+            else if(KeyPad2.entry.Length < 15) { 
                 KeyPad2.entry += name;
             }
         }
