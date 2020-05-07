@@ -50,7 +50,7 @@ public class BriefcaseController : MonoBehaviour
             box6.text = text6;
         }
 
-        if(box1.text == "1" && box2.text == "3" && box3.text == "5" && box4.text == "9" && box5.text == "1" && box6.text == "2")
+        if(box1.text == "1" && box2.text == "3" && box3.text == "5" && box4.text == "4" && box5.text == "0" && box6.text == "7")
         {
             briefcaseCorrect = true; 
             r1.material.SetColor("_Color", Color.green);

@@ -20,7 +20,7 @@ public class SlideCell : MonoBehaviour
     void Update()
     {   
         if(SlidePuzzle.solved) { 
-            if(name.Equals("12") || name.Equals("1") || name.Equals("35") || name.Equals("9")) { 
+            if(name.Equals("7") || name.Equals("1") || name.Equals("35") || name.Equals("40")) { 
                 renderer.material.SetColor("_Color", Color.green);
             }
         }
@@ -28,8 +28,8 @@ public class SlideCell : MonoBehaviour
         else if(name.Equals("1")) SlidePuzzle.solvers[0] = false;
         if(name.Equals("50") && y == 0 && z == 1) SlidePuzzle.solvers[1] = true;
         else if(name.Equals("50")) SlidePuzzle.solvers[1] = false;
-        if(name.Equals("11") && y == 0 && z == 2) SlidePuzzle.solvers[2] = true;
-        else if(name.Equals("11")) SlidePuzzle.solvers[2] = false;
+        if(name.Equals("12") && y == 0 && z == 2) SlidePuzzle.solvers[2] = true;
+        else if(name.Equals("12")) SlidePuzzle.solvers[2] = false;
         if(name.Equals("35") && y == 0 && z == 3) SlidePuzzle.solvers[3] = true;
         else if(name.Equals("35")) SlidePuzzle.solvers[3] = false;
         if(name.Equals("6") && y == 1 && z == 0) SlidePuzzle.solvers[4] = true;
@@ -52,8 +52,8 @@ public class SlideCell : MonoBehaviour
         else if(name.Equals("4")) SlidePuzzle.solvers[12] = false;
         if(name.Equals("10") && y == 3 && z == 1) SlidePuzzle.solvers[13] = true;
         else if(name.Equals("10")) SlidePuzzle.solvers[13] = false;
-        if(name.Equals("12") && y == 3 && z == 2) SlidePuzzle.solvers[14] = true;
-        else if(name.Equals("12")) SlidePuzzle.solvers[14] = false;
+        if(name.Equals("7") && y == 3 && z == 2) SlidePuzzle.solvers[14] = true;
+        else if(name.Equals("7")) SlidePuzzle.solvers[14] = false;
         
     }
 
