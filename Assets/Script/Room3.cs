@@ -23,6 +23,7 @@ public class Room3 : MonoBehaviour
     }
 
     public GameObject wall;
+    public GameObject letter;
     public GameObject ballRef;
     public GameObject startSquare;
     public GameObject endSquare;
@@ -47,7 +48,8 @@ public class Room3 : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
+        letter.SetActive(false);
         cells = new Cell[10][];
 
         for(int i = 0; i < 10; i++)
@@ -130,6 +132,7 @@ public class Room3 : MonoBehaviour
             if (MazeBall.inMaze && Vector3.Distance(ball.transform.position, end.transform.position) <= 0.27f)
             {
                 finished = true;
+                letter.SetActive(true);
                 chestAm.SetBool("Open", true);
             }
 

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardControl : MonoBehaviour
 {
     private bool holding;
+    public Text dropText;
     public Camera c;
     private Rigidbody rb;
     private Main.Frame mine;
@@ -15,6 +17,7 @@ public class CardControl : MonoBehaviour
         holding = false;
         rb = GetComponent<Rigidbody>();
         mine = null;
+        dropText.text = "";
     }
 
     // Update is called once per frame
@@ -22,12 +25,14 @@ public class CardControl : MonoBehaviour
     {
         if (holding)
         {
+            dropText.text = "Press F to drop item";
             transform.position = c.transform.position + c.transform.forward;
             transform.forward = c.transform.forward * -1;
             rb.Sleep();
 
             if (Input.GetKeyDown(KeyCode.F))
             {
+                dropText.text = "";
                 rb.WakeUp();
                 holding = false;
 
