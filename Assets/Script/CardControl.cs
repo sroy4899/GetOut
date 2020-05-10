@@ -10,6 +10,7 @@ public class CardControl : MonoBehaviour
     public Camera c;
     private Rigidbody rb;
     private Main.Frame mine;
+    private Collider mCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class CardControl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         mine = null;
         dropText.text = "";
+        mCollider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
