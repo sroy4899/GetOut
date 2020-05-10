@@ -60,7 +60,7 @@ public class EscapeTimer : MonoBehaviour
     IEnumerator ShutDown()
     {
         yield return new WaitForSeconds(14f);
-        SceneManager.LoadScene("Menu");
+        Application.Quit();
     }
 } 
 
