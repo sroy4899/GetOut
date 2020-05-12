@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private AudioSource audioSource; 
+    public AudioClip press; 
+
+    void Start() { 
+        audioSource = GetComponent<AudioSource>(); 
+    }
     public void PlayGame()
     {
         SceneManager.LoadScene("GetOut");
@@ -13,6 +19,11 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    } 
+
+    public void PlaySound() 
+    { 
+        audioSource.PlayOneShot(press);
     }
     
 }
