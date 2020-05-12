@@ -23,7 +23,8 @@ public class Room3 : MonoBehaviour
     }
 
     public GameObject wall;
-    public AudioClip advance; 
+    public AudioClip advance;
+    public AudioClip snap;
     //public AudioClip chestOpen;
     private AudioSource audioSource;
     public GameObject letter;
@@ -131,6 +132,8 @@ public class Room3 : MonoBehaviour
 
                 Rigidbody rbb = ball.GetComponent<Rigidbody>();
                 rbb.useGravity = false;
+
+                audioSource.PlayOneShot(snap);
             }
 
             if (MazeBall.inMaze && Vector3.Distance(ball.transform.position, end.transform.position) <= 0.27f)
