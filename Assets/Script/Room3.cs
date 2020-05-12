@@ -23,6 +23,9 @@ public class Room3 : MonoBehaviour
     }
 
     public GameObject wall;
+    public AudioClip advance; 
+    //public AudioClip chestOpen;
+    private AudioSource audioSource;
     public GameObject letter;
     public GameObject ballRef;
     public GameObject startSquare;
@@ -49,6 +52,7 @@ public class Room3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
+        audioSource = GetComponent<AudioSource>(); 
         letter.SetActive(false);
         cells = new Cell[10][];
 
@@ -133,6 +137,7 @@ public class Room3 : MonoBehaviour
             {
                 finished = true;
                 letter.SetActive(true);
+                //audioSource.PlayOneShot(chestOpen);
                 chestAm.SetBool("Open", true);
             }
 
@@ -218,21 +223,25 @@ public class Room3 : MonoBehaviour
     {
         if((orientation == 0) && (cells[xPos][yPos].west.activeSelf == false))
         {
+            audioSource.PlayOneShot(advance);
             xPos += 1;
         }
 
         if ((orientation == 1) && (cells[xPos][yPos].north.activeSelf == false))
         {
+            audioSource.PlayOneShot(advance);
             yPos -= 1;
         }
 
         if ((orientation == 2) && (cells[xPos][yPos].east.activeSelf == false))
         {
+            audioSource.PlayOneShot(advance);
             xPos -= 1;
         }
 
         if ((orientation == 3) && (cells[xPos][yPos].south.activeSelf == false))
         {
+            audioSource.PlayOneShot(advance);
             yPos += 1;
         }
 

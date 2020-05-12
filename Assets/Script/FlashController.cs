@@ -9,10 +9,13 @@ public class FlashController : MonoBehaviour
     private float timer = 0.0f;
     private bool first;
     private int index;
+    private AudioSource audioSource; 
+    public AudioClip buttonPress;
     private FlashLight.Flasher[] letterOrder;
     private FlashLight.Flasher flasher;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>(); 
         letterOrder = new FlashLight.Flasher[8];        
 
         startFlash = false;
@@ -62,6 +65,7 @@ public class FlashController : MonoBehaviour
         if(!startFlash) { 
             startFlash = true;
             index = 0;
+            audioSource.PlayOneShot(buttonPress);
             StartCoroutine(Press());
             letterOrder[index].Flash();
         }

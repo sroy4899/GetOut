@@ -8,6 +8,8 @@ public class CardControl : MonoBehaviour
     private bool holding;
     public Text dropText;
     public Camera c;
+    private AudioSource audioSource; 
+    public AudioClip schnap;
     private Rigidbody rb;
     private Main.Frame mine;
     private Collider mCollider;
@@ -15,6 +17,7 @@ public class CardControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         holding = false;
         rb = GetComponent<Rigidbody>();
         mine = null;
@@ -43,6 +46,7 @@ public class CardControl : MonoBehaviour
                 if (!closest.hasCard && (Vector3.Distance(transform.position, closest.obj.transform.position) < 2))
                 {
                     closest.hasCard = true;
+                    audioSource.PlayOneShot(schnap);
                     closest.cardVal = gameObject.name;
                     mine = closest;
                     transform.position = closest.obj.transform.position;

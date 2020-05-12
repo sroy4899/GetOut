@@ -8,12 +8,15 @@ public class FlashController1 : MonoBehaviour
     // Start is called before the first frame update
     private bool startFlash;
     private float timer = 0.0f;
+    private AudioSource audioSource; 
+    public AudioClip buttonPress;
     private bool first;
     private int index;
     private FlashLight.Flasher[] numberOrder;
     private FlashLight.Flasher flasher;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         numberOrder = new FlashLight.Flasher[8];
         
 
@@ -65,6 +68,7 @@ public class FlashController1 : MonoBehaviour
         if(!startFlash) { 
             startFlash = true;
             index = 0;
+            audioSource.PlayOneShot(buttonPress);
             StartCoroutine(Press());
             numberOrder[index].Flash();
         }

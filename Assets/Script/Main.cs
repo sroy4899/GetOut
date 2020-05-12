@@ -22,18 +22,24 @@ public class Main : MonoBehaviour
     public GameObject frame2;
     public GameObject frame3;
     public GameObject frame4;
-    public GameObject frame5;
+    public GameObject frame5; 
+    private AudioSource audioSource; 
+    public AudioClip chestOpen;
+    public AudioClip doorOpen;
     public static Frame[] frames;
     private ArrayList correctCards;
     private bool pokerFinished;
     public GameObject door; 
     private Animator doorAm; 
+    private bool firstChest;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         pokerFinished = false;
+        firstChest = false;
         doorAm = door.GetComponent<Animator>();
         frames = new Frame[5];
         frames[0] = new Frame(frame1);
@@ -67,9 +73,20 @@ public class Main : MonoBehaviour
             {
                 pokerFinished = true;
                 doorAm.SetBool("open", true);
+                StartCoroutine(OpenDoor());
             }
+        }
+        if(Room3.finished && !firstChest) { 
+            firstChest = true; 
+            audioSource.PlayOneShot(chestOpen);
         }
         
     } 
+
+    IEnumerator OpenDoor()
+    { 
+        yield return new WaitForSeconds(1);
+        audioSource.PlayOneShot(doorOpen);
+    }
 
 }

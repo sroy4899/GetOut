@@ -11,6 +11,9 @@ public class BriefcaseController : MonoBehaviour
     public Text box4;
     public Text box5;
     public Text box6; 
+    
+    private AudioSource audioSource; 
+    public AudioClip chestOpen;
 
     public GameObject b1, b2, b3, b4, b5, b6;
     private Renderer r1, r2, r3, r4, r5, r6, r7;
@@ -29,6 +32,7 @@ public class BriefcaseController : MonoBehaviour
     private void Start()
     {
         chestAm = chest.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         r1 = b1.GetComponent<Renderer>();
         r2 = b2.GetComponent<Renderer>();
         r3 = b3.GetComponent<Renderer>();
@@ -50,7 +54,7 @@ public class BriefcaseController : MonoBehaviour
             box6.text = text6;
         }
 
-        if(box1.text == "1" && box2.text == "3" && box3.text == "5" && box4.text == "4" && box5.text == "0" && box6.text == "7")
+        if(box1.text == "1" && box2.text == "3" && box3.text == "5" && box4.text == "4" && box5.text == "0" && box6.text == "7" && !briefcaseCorrect)
         {
             briefcaseCorrect = true; 
             r1.material.SetColor("_Color", Color.green);
@@ -59,6 +63,7 @@ public class BriefcaseController : MonoBehaviour
             r4.material.SetColor("_Color", Color.green);
             r5.material.SetColor("_Color", Color.green);
             r6.material.SetColor("_Color", Color.green);
+            audioSource.PlayOneShot(chestOpen);
             chestAm.SetBool("Open", true);
         }
     }

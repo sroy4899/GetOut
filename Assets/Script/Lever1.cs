@@ -5,10 +5,16 @@ using UnityEngine;
 public class Lever1 : MonoBehaviour
 {
     public GameObject handle;
+    public AudioClip rotate; 
+    private AudioSource audioSource;
     private float waitTime = 1.0f;
     private float timer = 0.0f;
     public static bool rotating = false;
     private Vector3 center = new Vector3(-8, 3, 49.5f);
+
+    void Start() { 
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -31,6 +37,7 @@ public class Lever1 : MonoBehaviour
     {
         if (!Room3.finished && MazeBall.inMaze && !rotating && !Lever2.rotating2)
         {
+            audioSource.PlayOneShot(rotate);
             transform.RotateAround(center, Vector3.right, -90);
             handle.transform.RotateAround(center, Vector3.right, -90);
             Room3.lever1Pull = true;

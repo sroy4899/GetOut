@@ -7,6 +7,8 @@ public class MazeBall : MonoBehaviour
 {
     public static bool holding; 
     public Text dropText;
+    private AudioSource audioSource;
+    public AudioClip schnapp;
     public Camera c;
     private Rigidbody rb;
     public static bool inMaze = false;
@@ -15,6 +17,7 @@ public class MazeBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>(); 
         holding = false;
         rb = GetComponent<Rigidbody>();
         dropText.text = "";
@@ -38,6 +41,7 @@ public class MazeBall : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, startPos) < 2 && transform.position.x > -3.125f && transform.position.x < 2.5f)
                 {
+                    audioSource.PlayOneShot(schnapp);
                     inMaze = true;
                     gameObject.SetActive(false);
                 }

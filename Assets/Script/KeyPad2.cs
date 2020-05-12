@@ -7,7 +7,11 @@ public class KeyPad2 : MonoBehaviour
 {
     // Start is called before the first frame update
     public Text t;
-    public Material texture;
+    public Material texture; 
+    private AudioSource audioSource; 
+    public AudioClip approved; 
+    public AudioClip error;
+    public AudioClip doorOpen;
     public static string entry;
     public GameObject display;
     public string passcode; 
@@ -18,6 +22,7 @@ public class KeyPad2 : MonoBehaviour
     private Animator tridoorAm;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         t.text = "";
         r = display.GetComponent<Renderer>();
         entry = "";
@@ -32,12 +37,15 @@ public class KeyPad2 : MonoBehaviour
         if(!opened) {
             t.text = entry;
             if(check) { 
-                if(t.text == passcode) { 
+                if(t.text == passcode) {
+                    audioSource.PlayOneShot(approved, .5f);  
                     tridoorAm.SetBool("open", true);
                     opened = true; 
-                    r.material.SetColor("_Color", Color.green); 
+                    r.material.SetColor("_Color", Color.green);
+                    StartCoroutine(OpenDoor()); 
                 } 
                 else { 
+                    audioSource.PlayOneShot(error);
                     StartCoroutine(Yeet());
                 }
                 entry = "";
@@ -51,5 +59,11 @@ public class KeyPad2 : MonoBehaviour
         r.material.SetColor("_Color", Color.red); 
         yield return new WaitForSeconds(1); 
         r.material = texture;
+    }
+
+    IEnumerator OpenDoor()
+    { 
+        yield return new WaitForSeconds(1);
+        audioSource.PlayOneShot(doorOpen);
     }
 }

@@ -7,9 +7,14 @@ public class SlidePuzzle : MonoBehaviour
     // Start is called before the first frame update
     public static int empty_y, empty_z;
     public static bool[] solvers;
+    private AudioSource audioSource; 
+    public AudioClip approved;
     public static bool solved;
+    private bool first;
     void Start()
     { 
+        audioSource = GetComponent<AudioSource>();
+        first = false;
         empty_y = 3; empty_z = 3;
         solvers = new bool[15];
         for(int i = 0; i < solvers.Length; i++) { 
@@ -25,7 +30,11 @@ public class SlidePuzzle : MonoBehaviour
         for(int i = 0; i < solvers.Length; i++) { 
             if(solvers[i] == false) yeet = false; 
         }
-        if (yeet) solved = true;
+        if (yeet && !first) { 
+            solved = true;
+            audioSource.PlayOneShot(approved);
+            first = true;
+        }
     } 
 
     public static int[] worldToGrid(float y, float z) { 

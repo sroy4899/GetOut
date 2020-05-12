@@ -6,10 +6,13 @@ public class SlideCell : MonoBehaviour
 {
     private int y, z;
     private Renderer renderer;
+    private AudioSource audioSource; 
+    public AudioClip slide;
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
+        audioSource = GetComponent<AudioSource>(); 
         renderer = GetComponent<Renderer>();
         int[] yeet = SlidePuzzle.worldToGrid(transform.position.y, transform.position.z);
         y = yeet[0];
@@ -22,7 +25,7 @@ public class SlideCell : MonoBehaviour
         if(SlidePuzzle.solved) { 
             if(name.Equals("7") || name.Equals("1") || name.Equals("35") || name.Equals("40")) { 
                 renderer.material.SetColor("_Color", Color.green);
-            }
+            } 
         }
         if(name.Equals("1") && y == 0 && z == 0) SlidePuzzle.solvers[0] = true;
         else if(name.Equals("1")) SlidePuzzle.solvers[0] = false;
@@ -88,6 +91,7 @@ public class SlideCell : MonoBehaviour
                     z += 1;
                     transform.Translate(new Vector3(0, 0, 2));
                 }
+                audioSource.PlayOneShot(slide);
             }
         }
     }

@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class BriefcaseButtonController : MonoBehaviour
 {
+    private AudioSource audioSource; 
+    public AudioClip press; 
+
+    void Start() { 
+        audioSource = GetComponent<AudioSource>(); 
+    }
     private void OnMouseDown()
     {
+        if(!BriefcaseController.briefcaseCorrect) audioSource.PlayOneShot(press);
         if(name == "1Up")
         {
             int textVal = int.Parse(BriefcaseController.text1);
