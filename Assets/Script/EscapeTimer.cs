@@ -14,6 +14,8 @@ public class EscapeTimer : MonoBehaviour
     public Light lt;
     private float time;
     private bool won = true;
+    private bool finished = false;
+
     void Start()
     {
         time = 3600;
@@ -23,39 +25,45 @@ public class EscapeTimer : MonoBehaviour
     }
 
     void FixedUpdate() 
-    { 
-        if(time >= 0)
+    {
+        if (!finished)
         {
-            time -= Time.deltaTime;
-            float minutes = Mathf.Floor(time / 60);
-            float seconds = Mathf.Floor(time % 60);
-            if (seconds < 10)
+            if (time >= 1)
             {
-                timer.text = minutes + ":0" + seconds;
-            }
-            else { timer.text = minutes + ":" + seconds; }
-        } else
-        {
-            timer.text = "0:00";
-            timer.color = Color.red;
-            won = false;
-        }
-
-        if(player.transform.position.z <= -11) {
-            lt.intensity = 0; 
-
-            if (won)
-            {
-                winText.text = "Dear child, you have done the impossible. \nYou are the first person to finish my tasks, and now you are my champion.\nOnwards we go! The name of the secret place, which you are now worthy of: Casino of Yeeticus";
+                time -= Time.deltaTime;
+                float minutes = Mathf.Floor(time / 60);
+                float seconds = Mathf.Floor(time % 60);
+                if (seconds < 10)
+                {
+                    timer.text = minutes + ":0" + seconds;
+                }
+                else { timer.text = minutes + ":" + seconds; }
             }
             else
             {
-                loseText.text = "Dear child, you have failed me.";
+                timer.color = Color.red;
+                timer.text = "0:00";
+                won = false;
             }
 
-            StartCoroutine(ShutDown());
-        }
-        
+            if (player.transform.position.z <= -11)
+            {
+                finished = true;
+                lt.intensity = 0;
+
+                if (won)
+                {
+                    timer.color = Color.green;
+                    winText.text = "Dear child, you have done the impossible. \nYou are the first person to finish my tasks, and now you are my champion.\nOnwards we go! The name of the secret place, which you are now worthy of: Casino of Yeeticus";
+                }
+                else
+                {
+                    loseText.text = "Dear child, you have failed me.";
+                }
+
+                StartCoroutine(ShutDown());
+            }
+        } 
     }
     IEnumerator ShutDown()
     {
